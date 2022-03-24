@@ -2,17 +2,20 @@ Group Name: Everything Is Exploding
 
 Group Members:
   Tanner Clayton (tannerc3)
+  Richard (qyao6)
 
 Project Intro:
-  I'm going to recreate a minimal version of BlackJack.
-  As a solo project for a final worth of my grade I wanted something to refine my technical skills and explore what can be done but was with my realm of reasonable confindence, esspessically for a language I'm very new to.
+  We're going to recreate a minimal version of BlackJack.
+  The project with our current skills we felt comforable with a final worth of wait on a project we were reallatively confident in
   Main:
   -Successfully Implement a funcitonal, bugfree Blackjack version in Rust.
   -Singular BlackJack Hand
-  -'House' Hand of some form
+  -Player controls
   -Score Traker
   -Adustable number of decks in play.
-  Secondary:
+  
+  Secondary/Optional:
+  -Implement House Hand. = vs AI
   -Implement multipule players. maybe without a house. Locally
   -Implement Network multiplayer.
 
