@@ -1,8 +1,13 @@
 pub mod cards;
+pub mod Blackjack;
+pub mod Player;
 use crate::cards::*;
+use crate::Blackjack::*;
+use crate::Player::*;
 
 fn main() {
-    println!("Hello, world!");
+    Blackjack::main();
+    /*
     let test: Card = BuildCard("new");
     println!("{}",test.name_);
     let Hand1: Vec<Card> = BuildDeck();
@@ -12,4 +17,5 @@ fn main() {
         count += 1;
     }
     println!("Total Cards: {}", count);
+    */
 }
