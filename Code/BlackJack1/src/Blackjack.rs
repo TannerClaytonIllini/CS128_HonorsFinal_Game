@@ -1,14 +1,16 @@
 use super::cards::*;
 use super::Player::*;
 use std::io::{stdin,stdout,Write};
+use crate::rand::Rng::*;
 
 pub struct Game {
-    DealDeck: Vec<Card>,
+    fulldeck: Vec<Card>,
     players: Vec<Player>,
 }
 
 pub fn main() {
     println!("Welcome to Blackjack!");
+    println!("This game assumes you are already are familiar with Blackjack and currently doesn't explain how play.\nIf doesn't work for you, indly Combust.\nHave a Great Game!");
     //PreGame Setup
     let mut setlatch: bool = true;
     let mut playercount = 1;
@@ -26,12 +28,14 @@ pub fn main() {
             setlatch = false;
         }
     }
-    let gamestate: Game = Setup(playercount as u8, deckcount as u8);
     //Game Begin
+    let gamestate: Game = Setup(playercount as u8, deckcount as u8);
     let mut gameplaycondition: bool = true;
     println!("BlackJack main");
-    while gameplaycondition { //if game is active
-        let s: String = GetInput("A number is: ");
+    while gameplaycondition { //if game is active :: a single hand
+        InitialDeal(gamestate);
+        // test / escape latch
+        let s: String = GetInput("If done type 'escape': ");
         if s == "escape".to_string() {
             gameplaycondition = false;
         }
@@ -60,9 +64,23 @@ pub fn Setup(players: u8, decks: u8) -> Game {
         count += 1;
     }
     Game {
-        DealDeck: tDealDeck,
+        fulldeck: tDealDeck,
         players: tplayers,
     }
+}
+
+pub fn InitialDeal(game: Game) {
+    for player in game.players {
+        let mut rng = rand::thread_rng();
+        player.hand.push(pullCard(game.fulldeck, rng.gen_range(0..(game.fulldeck.len() as i32))));
+    }
+}
+
+pub fn pullCard(deck: Vec<Card>, index: i32) -> Card {
+    let mut tempdeck: Vec<Card> = deck.split_off(index as usize);
+    let card: Card = deck.pop().unwrap();
+    deck.append(&mut tempdeck);
+    return card;
 }
 
 pub fn GetInput(outtext: &str) -> String{
