@@ -1,8 +1,11 @@
 use super::cards::*;
 use super::Player::*;
 use std::io::{stdin,stdout,Write};
-use crate::rand::Rng::*;
+use rand::Rng;
+use std::thread;
+use std::thread::JoinHandle;
 
+/* Holds game data */
 pub struct Game {
     fulldeck: Vec<Card>,
     players: Vec<Player>,
@@ -29,11 +32,28 @@ pub fn main() {
         }
     }
     //Game Begin
-    let gamestate: Game = Setup(playercount as u8, deckcount as u8);
+    let mut gamestate: Game = Setup(playercount as u8, deckcount as u8);
     let mut gameplaycondition: bool = true;
     println!("BlackJack main");
     while gameplaycondition { //if game is active :: a single hand
-        InitialDeal(gamestate);
+        InitialDeal(&mut gamestate);
+        let mut round: bool = true;
+        while round {
+            //let mut handles: Vec<JoinHandle<()>> = vec![];
+            for player in &gamestate.players {
+                /* used later to distribut display to multipule human players
+                let mut playersc: Vec<Player> = &gamestate.clonePlayers();
+                let mut playerclone: Player = player.clone();
+                let handle = thread::spawn(move || {
+                    DisplayGameState(playersc, &playerclone);
+                });
+                handles.push(handle);
+                */
+                DisplayGameState(&gamestate.players, &player);
+                println!("NEXT PLAYER");
+            }
+            round = false;
+        }
         // test / escape latch
         let s: String = GetInput("If done type 'escape': ");
         if s == "escape".to_string() {
@@ -44,6 +64,7 @@ pub fn main() {
     println!("Game Ended");
 }
 
+/* Begins the game. Sets up Player objects and Deck for the game */
 pub fn Setup(players: u8, decks: u8) -> Game {
     if (players == 0) || (decks == 0) {
         println!("players and decks must be created with a minimum of one");
@@ -60,7 +81,7 @@ pub fn Setup(players: u8, decks: u8) -> Game {
     count = 1;
     let mut tplayers = vec![];
     while count <= players {
-        tplayers.push(super::Player::BuildPlayer());
+        tplayers.push(super::Player::BuildPlayerID(count as i32));
         count += 1;
     }
     Game {
@@ -69,20 +90,53 @@ pub fn Setup(players: u8, decks: u8) -> Game {
     }
 }
 
-pub fn InitialDeal(game: Game) {
-    for player in game.players {
-        let mut rng = rand::thread_rng();
-        player.hand.push(pullCard(game.fulldeck, rng.gen_range(0..(game.fulldeck.len() as i32))));
+/* First Deal of the game sets up a hand for each player */
+pub fn InitialDeal(game: &mut Game) {
+    let mut count = 0;
+    while count < 2 { //deals 2 cards to each player
+        for player in &mut game.players {
+            let mut rng = rand::thread_rng();
+            player.hand.push(game.fulldeck.remove(rng.gen_range(0..(game.fulldeck.len() as i32) as usize)));
+        }
+        count += 1;
     }
 }
 
-pub fn pullCard(deck: Vec<Card>, index: i32) -> Card {
-    let mut tempdeck: Vec<Card> = deck.split_off(index as usize);
-    let card: Card = deck.pop().unwrap();
-    deck.append(&mut tempdeck);
-    return card;
+
+
+pub fn DisplayGameState(players: &Vec<Player>, curr: &Player) {
+    for player in players {
+        if player == curr {
+            print!("Your hand: ");
+            for card in &player.hand {
+                print!("{}, ", card.name_);
+            }
+            print!("\n");
+            continue;
+        }
+        print!("Player {} hand: ", player.id);
+        for card in &player.hand {
+            if card == &player.hand[0] {
+                print!("'hidden' ");
+                continue;
+            }
+            print!("{} ", card.name_);
+        }
+        print!("\n");
+    }
 }
 
+impl Game {
+    pub fn clonePlayers(&self) -> Vec<Player> {
+        let mut outvec: Vec<Player> = vec![];
+        for player in &self.players {
+            outvec.push(player.clone())
+        }
+        return outvec;
+    }
+}
+
+/* Whenever needs player input. returns string of players input/choice. Param - Output prompt to the player */
 pub fn GetInput(outtext: &str) -> String{
     let mut inputstring = String::new();
     print!("{}", outtext);
@@ -97,6 +151,8 @@ pub fn GetInput(outtext: &str) -> String{
     return inputstring;
 }
 
+
+/* Returns number of players */
 pub fn GetPlayers(game: Game) -> u8 {
     return game.players.len() as u8;
 }

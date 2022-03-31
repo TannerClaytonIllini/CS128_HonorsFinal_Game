@@ -1,4 +1,5 @@
 
+#[derive(PartialEq)]
 pub struct Card {
     pub name_: String,
     pub value_: u8,
@@ -30,6 +31,15 @@ pub fn BuildNumber() -> Vec<String> {
     return number;
 }
 
+impl Card {
+    pub fn clone(&self) -> Card {
+        Card {
+            name_: self.name_.clone(),
+            value_: self.value_.clone(),
+        }
+    }
+}
+
 pub fn BuildCard(name: &str) -> Card {
     let suits: Vec<String> = BuildSuits();
     Card {
@@ -38,6 +48,7 @@ pub fn BuildCard(name: &str) -> Card {
             let mut hold: String = name.to_string();
             for suit in suits {
                 hold = hold.replace(suit.as_str(), "");
+                hold = hold.replace(" of ", "");
             }
             match hold.as_str() {
                 "2" => 2,
@@ -65,6 +76,7 @@ pub fn BuildDeck() -> Vec<Card> {
         for num in &number {
             let nsuit: &str = suit.as_str();
             let mut tag: String = num.clone();
+            tag.push_str(" of ");
             tag.push_str(nsuit);
             let ncard: Card = BuildCard(tag.as_str());
             deck.push(ncard);

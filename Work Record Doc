@@ -1,4 +1,5 @@
 3/26 Tanner: Testing GitHub, beginning rust setup
 3/27 Tanner: Creaded Cards.rs, and got card, value, and Deck construction working.
 3/27 Tanner: Creaded Game, Player, AI, and began building Game framework.
-3/28 Tanner: Setup Player Input. created player input parameters to Game
+3/28 Tanner: Setup Player Input. created player input parameters to Game. Started Dealing Cards. Rng import error
+3/30 Tanner: Resolved Rng import error. finished init deal. setup Display Table. 
