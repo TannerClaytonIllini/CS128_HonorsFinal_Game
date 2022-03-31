@@ -1,0 +1,19 @@
+Cards {name, value}
+    Card();
+    Deck();
+    Clone();
+Player {hand, id}
+    Player();
+    Clone();
+BlackJack 
+    Game {players, dealdeck}
+
+    Start Game
+    Deal Hands
+    Player hit/pass. Repeat until game over
+    Display Table
+
+    BlackJackCondiditon checks
+        Handtotal value <= 21; otherwise fail/ cant play rest of hand;
+        if 6 >= cards in hand. Auto win. Endgame.
+        
