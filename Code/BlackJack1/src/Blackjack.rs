@@ -13,7 +13,10 @@ pub struct Game {
 
 pub fn main() {
     println!("Welcome to Blackjack!");
-    println!("This game assumes you are already are familiar with Blackjack and currently doesn't explain how play.\nIf doesn't work for you, indly Combust.\nHave a Great Game!");
+    println!("This game assumes you are already are familiar with Blackjack and currently doesn't explain how play.\nIf that doesn't work for you, kindly Combust.\nHave a Great Game!");
+    println!("We ask that you only input inputs when asked EXACTLY in the form requested: exactly the phrase within '_' ");
+    println!("Example: 'hit' or 'pass' .\n Your input should be:\nhit\nExactly what is within the hyponses but without the hyphones themselves");
+    println!("=====================================================");
     //PreGame Setup
     let mut setlatch: bool = true;
     let mut playercount = 1;
@@ -32,16 +35,17 @@ pub fn main() {
         }
     }
     //Game Begin
-    let mut gamestate: Game = Setup(playercount as u8, deckcount as u8);
     let mut gameplaycondition: bool = true;
     println!("BlackJack main");
     while gameplaycondition { //if game is active :: a single hand
-        InitialDeal(&mut gamestate);
         let mut round: bool = true;
         while round {
+            let mut gamestate: Game = Setup(playercount as u8, deckcount as u8);
+            InitialDeal(&mut gamestate); //add check for how many cards left in the deck
+            println!("\n=============== NEW ROUND ================\n");
             //let mut handles: Vec<JoinHandle<()>> = vec![];
             for player in &gamestate.players {
-                /* used later to distribut display to multipule human players
+                /* // used later to distribute display to multipule human players
                 let mut playersc: Vec<Player> = &gamestate.clonePlayers();
                 let mut playerclone: Player = player.clone();
                 let handle = thread::spawn(move || {
@@ -52,16 +56,42 @@ pub fn main() {
                 DisplayGameState(&gamestate.players, &player);
                 println!("NEXT PLAYER");
             }
+            //game active after initial deal
+            for player in &mut gamestate.players { //This can be made into a funciton
+                println!("It's your turn Player {}!",player.id);
+                let mut curractive = true; //current player is still active / has not passed yet
+                while curractive {
+                    let total = player.TotalHand();
+                    if total <= 21 as u8 {
+                        print!("Hand: ");
+                            player.DisplayHand();
+                        let mut choice = GetInput("'hit'(get another card) or 'pass'(end your hand)\n");
+                        if choice == "hit".to_string() {
+                            let mut rng = rand::thread_rng();
+                            let card = gamestate.fulldeck.remove(rng.gen_range(0..(gamestate.fulldeck.len() as i32) as usize));
+                            println!("{}", card.name_);
+                            player.hand.push(card);
+                            if player.TotalHand() > 21 as u8 {
+                                println!("You went over 21 and are out of the game for the rest of the round!");
+                                curractive = false;
+                            }
+                        } else if choice == "pass".to_string() {
+                            curractive = false;
+                            println!("You passed next players turn")
+                        }
+                    }
+                }
+                //Get winner
+            }
             round = false;
         }
         // test / escape latch
-        let s: String = GetInput("If done type 'escape': ");
-        if s == "escape".to_string() {
+        let s: String = GetInput("If done type 'end', enter anything else to play another round with the same settings\n");
+        if s == "end".to_string() {
             gameplaycondition = false;
         }
-        println!("You typed: {}",s);
     }
-    println!("Game Ended");
+    println!("================== Game Ended ===================");
 }
 
 /* Begins the game. Sets up Player objects and Deck for the game */
@@ -108,10 +138,7 @@ pub fn DisplayGameState(players: &Vec<Player>, curr: &Player) {
     for player in players {
         if player == curr {
             print!("Your hand: ");
-            for card in &player.hand {
-                print!("{}, ", card.name_);
-            }
-            print!("\n");
+            player.DisplayHand();
             continue;
         }
         print!("Player {} hand: ", player.id);
@@ -120,7 +147,7 @@ pub fn DisplayGameState(players: &Vec<Player>, curr: &Player) {
                 print!("'hidden' ");
                 continue;
             }
-            print!("{} ", card.name_);
+            print!("{}, ", card.name_);
         }
         print!("\n");
     }

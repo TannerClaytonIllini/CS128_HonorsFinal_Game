@@ -6,6 +6,7 @@ use super::cards::*;
 pub struct Player {
     pub hand: Vec<Card>,
     pub id: i32,
+    //pub bust_: bool, implement in revision 1
 }
 
 impl Player {
@@ -18,6 +19,21 @@ impl Player {
             hand: chand,
             id: self.id.clone(),
         }
+    }
+
+    pub fn DisplayHand(&self) {
+        for card in &self.hand {
+            print!("{}, ", card.name_);
+        }
+        print!("| Total Value: {}", &self.TotalHand());
+        print!("\n");
+    }
+    pub fn TotalHand(&self) -> u8 {
+        let mut total: u8 = 0;
+        for card in &self.hand {
+            total += card.value_;
+        }
+        return total;
     }
 }
 
