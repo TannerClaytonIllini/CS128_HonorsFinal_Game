@@ -43,6 +43,7 @@ pub fn main() {
             let mut gamestate: Game = Setup(playercount as u8, deckcount as u8);
             InitialDeal(&mut gamestate); //add check for how many cards left in the deck
             println!("\n=============== NEW ROUND ================\n");
+            //ADD a deck condidtion and adjustment for at least 5 cards per hand minimum.
             //let mut handles: Vec<JoinHandle<()>> = vec![];
             for player in &gamestate.players {
                 /* // used later to distribute display to multipule human players
@@ -81,9 +82,9 @@ pub fn main() {
                         }
                     }
                 }
-                //Get winner
             }
-            round = false;
+            GetWinner(&gamestate.players, &mut round);
+            //round = false;
         }
         // test / escape latch
         let s: String = GetInput("If done type 'end', enter anything else to play another round with the same settings\n");
@@ -132,7 +133,32 @@ pub fn InitialDeal(game: &mut Game) {
     }
 }
 
-
+pub fn GetWinner(players: &Vec<Player>, round: &mut bool) {
+    let mut wintie: Vec<Player> = vec![];
+    let mut max = 0;
+    for player in players {
+        if player.TotalHand() >= max {
+            max = player.TotalHand();
+        }
+    }
+    for player in players {
+        if player.TotalHand() == max {
+            wintie.push(player.clone());
+        }
+    }
+    if wintie.len() > 1 {
+        *round = true;
+        let mut playerids = "".to_string();
+        for player in &wintie {
+            playerids.push_str(player.id.to_string().as_str());
+            playerids.push_str(" ,");
+        }
+        println!("There is a tie. Players {} will have to player another round to determine a winner", playerids);
+    } else {
+        *round = false;
+        println!("Player {} is the Winner!", wintie[0].id);
+    }
+}
 
 pub fn DisplayGameState(players: &Vec<Player>, curr: &Player) {
     for player in players {

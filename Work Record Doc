@@ -4,3 +4,4 @@
 3/28 Tanner: Setup Player Input. created player input parameters to Game. Started Dealing Cards. Rng import error
 3/30 Tanner: Resolved Rng import error. finished init deal. setup Display Table. === Richard Acknowleged project.
 4/3 Tanner: BlackJack is functional however does not have a win condition yet.
+4/7 Tanner: Win Condition implemented but still ahs a bug. work on later
