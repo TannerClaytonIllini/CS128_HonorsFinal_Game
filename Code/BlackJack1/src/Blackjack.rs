@@ -62,8 +62,7 @@ pub fn main() {
                 println!("It's your turn Player {}!",player.id);
                 let mut curractive = true; //current player is still active / has not passed yet
                 while curractive {
-                    let total = player.TotalHand();
-                    if total <= 21 as u8 {
+                    if player.TotalHand() <= 21 as u8 {
                         print!("Hand: ");
                             player.DisplayHand();
                         let mut choice = GetInput("'hit'(get another card) or 'pass'(end your hand)\n");
@@ -137,12 +136,13 @@ pub fn GetWinner(players: &Vec<Player>, round: &mut bool) {
     let mut wintie: Vec<Player> = vec![];
     let mut max = 0;
     for player in players {
-        if player.TotalHand() >= max {
+        if (player.TotalHand() >= max) && (player.TotalHand() <= 21) {
             max = player.TotalHand();
         }
     }
     for player in players {
         if player.TotalHand() == max {
+            println!("max: {}", max);
             wintie.push(player.clone());
         }
     }
