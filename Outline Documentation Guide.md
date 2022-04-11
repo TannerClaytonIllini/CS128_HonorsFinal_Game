@@ -44,14 +44,23 @@ Network Multiplayer
 UI - Graphics
     Developing interactive interface that is not the text editor in terminal we currently use.
     Iced or fltk might be good Rust UI framework to achieve this goal.
+    
     UI outline:
+    
         a home page to choose play offline or with other players :
+        
             -a text entry to input player name
+            
             -a button to offline game
+            
             -a button to multiplayer game
+            
         game page which is transferred from home page :
+        
             -hit button in all cases
+            
             -pass button to pass
+            
     
 
         
