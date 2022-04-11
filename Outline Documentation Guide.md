@@ -41,9 +41,17 @@ Network Multiplayer
     Pretty straight foward Multiplayer on more than one terminal.
     Again I'm not sure how to do this so if you have ideas develop and outline them please.
 
-UI - 
-    Developing interactive interface that is not the text editor in terminal. we currently use.
-    There are lots of ways to do this. I haven't looked into it yet and am open to anything we can do.
+UI - Graphics
+    Developing interactive interface that is not the text editor in terminal we currently use.
+    Iced or fltk might be good Rust UI framework to achieve this goal.
+    UI outline:
+        a home page to choose play offline or with other players :
+            -a text entry to input player name
+            -a button to offline game
+            -a button to multiplayer game
+        game page which is transferred from home page :
+            -hit button in all cases
+            -pass button to pass
     
 
         
