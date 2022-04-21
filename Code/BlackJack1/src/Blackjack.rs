@@ -12,11 +12,7 @@ pub struct Game {
 }
 
 pub fn main() {
-    println!("Welcome to Blackjack!");
-    println!("This game assumes you are already are familiar with Blackjack and currently doesn't explain how play.\nIf that doesn't work for you, kindly Combust.\nHave a Great Game!");
-    println!("We ask that you only input inputs when asked EXACTLY in the form requested: exactly the phrase within '_' ");
-    println!("Example: 'hit' or 'pass' .\n Your input should be:\nhit\nExactly what is within the hyponses but without the hyphones themselves");
-    println!("=====================================================");
+    
     //PreGame Setup
     let mut setlatch: bool = true;
     let mut playercount = 1;
@@ -208,8 +204,4 @@ pub fn GetInput(outtext: &str) -> String{
 /* Returns number of players */
 pub fn GetPlayers(game: Game) -> u8 {
     return game.players.len() as u8;
-}
-
-pub fn DealHands(gamestate: Game, players: Vec<Player>) {
-
 }
