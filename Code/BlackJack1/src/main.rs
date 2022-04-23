@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a87ba8d957d6ee14d1a3369b62f3a533f95d6423418ff16be868c5326e73faad
-size 456
+pub mod cards;
+pub mod Blackjack;
+pub mod Player;
+pub mod UI;
+use crate::cards::*;
+use crate::Blackjack::*;
+use crate::Player::*;
+
+fn main() {
+    UI::main();
+    
+    /*
+    let test: Card = BuildCard("new");
+    println!("{}",test.name_);
+    let Hand1: Vec<Card> = BuildDeck();
+    let mut count = 0;
+    for card in Hand1 {
+        println!("{}: {}", card.name_, card.value_);
+        count += 1;
+    }
+    println!("Total Cards: {}", count);
+    */
+}
+
