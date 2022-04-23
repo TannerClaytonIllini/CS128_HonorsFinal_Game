@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:324ccce5ea6e56f8e68325b313ad293cb9da33ec1ce7db883b36371694ff6498
-size 247
+[package]
+name = "BlackJack1"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.4"
+
+coffee = { version = "0.4", features = ["opengl"] }
