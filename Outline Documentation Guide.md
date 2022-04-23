@@ -43,7 +43,7 @@ Network Multiplayer
 
 UI - Graphics
     Developing interactive interface that is not the text editor in terminal we currently use.
-    Iced or fltk might be good Rust UI framework to achieve this goal.
+    Coffee framework will be used in building the UI of this game.
     
     UI outline:
     
@@ -60,6 +60,12 @@ UI - Graphics
             -hit button in all cases
             
             -pass button to pass
+        
+        end page to select end or restart a new game :
+
+            -button "end"
+
+            -button "new game"
             
     
 
