@@ -11,7 +11,7 @@ use crate::AI::*;
 use crate::menu::*;
 
 fn main() {
-    menu::main();
+    UI::main();
     
     /*
     let test: Card = BuildCard("new");
