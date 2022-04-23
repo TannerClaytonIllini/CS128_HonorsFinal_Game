@@ -6,7 +6,6 @@ use rand::Rng;
 use std::thread;
 use std::thread::JoinHandle;
 
-<<<<<<< HEAD
 pub struct Game {
     fulldeck: Vec<Card>,
     player: Player,
@@ -51,7 +50,7 @@ pub fn main() {
                     let clonedeck: &Vec<Card> = &gamestate.cloneDeck();
                     if ai.TotalHand() <= 21 as u8 {
                             ai.DisplayHand();
-                        let choice: String = ai.AIturn(clonedeck);
+                        let choice: String = "pass"; //ai.AIturn(clonedeck); // need to fix reference issue
                         if choice == "hit".to_string() {
                             let mut rng = rand::thread_rng();
                             let card = gamestate.fulldeck.remove(rng.gen_range(0..(gamestate.fulldeck.len() as i32) as usize));
@@ -209,9 +208,3 @@ pub fn GetInput(outtext: &str) -> String{
 pub fn GetAIs(game: Game) -> u8 {
     return game.aiplayers.len() as u8;
 }
-=======
-pub mod cards;
-pub mod Player;
-use crate::cards::*;
-use crate::Player::*;
->>>>>>> 80ed4ea77da332e1f8cbaf60491879b185b436ea
