@@ -100,7 +100,7 @@ pub fn Setup(ais: u8, decks: u8) -> Game {
         let mut setlatch = true;
         let mut difficulty: u8 = 0;
         while setlatch {
-            difficulty = GetInput("Please select AI{}'s difficulty: '1'-EASY , '2'-MEDIUM , '3'-HARD\n", count).parse::<u8>().unwrap(); 
+            difficulty = GetInput("Please select this AI's difficulty: '1'-EASY , '2'-MEDIUM , '3'-HARD\n").parse::<u8>().unwrap(); 
             if difficulty > 0 && difficulty < 4 {
                 setlatch = false;
             }
