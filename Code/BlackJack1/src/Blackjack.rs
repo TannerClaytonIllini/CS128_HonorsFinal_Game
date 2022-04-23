@@ -205,3 +205,10 @@ pub fn GetInput(outtext: &str) -> String{
 pub fn GetPlayers(game: Game) -> u8 {
     return game.players.len() as u8;
 }
+<<<<<<< HEAD
+=======
+
+pub fn DealHands(gamestate: Game, players: Vec<Player>) {
+
+}
+>>>>>>> 80ed4ea77da332e1f8cbaf60491879b185b436ea

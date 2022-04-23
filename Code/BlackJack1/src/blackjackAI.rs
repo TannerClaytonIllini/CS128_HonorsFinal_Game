@@ -6,6 +6,7 @@ use rand::Rng;
 use std::thread;
 use std::thread::JoinHandle;
 
+<<<<<<< HEAD
 pub struct Game {
     fulldeck: Vec<Card>,
     player: Player,
@@ -208,3 +209,9 @@ pub fn GetInput(outtext: &str) -> String{
 pub fn GetAIs(game: Game) -> u8 {
     return game.aiplayers.len() as u8;
 }
+=======
+pub mod cards;
+pub mod Player;
+use crate::cards::*;
+use crate::Player::*;
+>>>>>>> 80ed4ea77da332e1f8cbaf60491879b185b436ea
