@@ -47,9 +47,10 @@ pub fn main() {
                 println!("It's AI {} turn!",ai.id);
                 let mut curractive = true; //current player/ai is still active / has not passed yet
                 while curractive {
+                    let clonedeck: &Vec<Card> = &gamestate.cloneDeck();
                     if ai.TotalHand() <= 21 as u8 {
                             ai.DisplayHand();
-                        let mut choice = ai.AIturn(&gamestate.cloneDeck());
+                        let choice: String = ai.AIturn(clonedeck);
                         if choice == "hit".to_string() {
                             let mut rng = rand::thread_rng();
                             let card = gamestate.fulldeck.remove(rng.gen_range(0..(gamestate.fulldeck.len() as i32) as usize));
