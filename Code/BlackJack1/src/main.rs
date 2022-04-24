@@ -2,6 +2,8 @@ pub mod cards;
 pub mod Blackjack;
 pub mod BlackjackAI;
 pub mod Player;
+pub mod AI;
+pub mod menu;
 pub mod UI;
 use crate::cards::*;
 use crate::Blackjack::*;

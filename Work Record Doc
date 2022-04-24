@@ -6,5 +6,5 @@
 4/3 Tanner: BlackJack is functional however does not have a win condition yet.
 4/7 Tanner: Win Condition implemented. BlackJack is functional
 4/20 Tanner: Reorganized. Added Menu and copied BlackjackAI, began implimenting. ownership issue in main game.
-4/22 Tanner:
+4/22 Tanner: AI clean up. still short of full functionallity
 4/22 Richard: basic UI without game implemented
