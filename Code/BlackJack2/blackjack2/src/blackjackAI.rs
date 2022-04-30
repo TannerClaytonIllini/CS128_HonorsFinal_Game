@@ -50,10 +50,10 @@ pub fn main() {
                    // let clonedeck: &Vec<Card> = &gamestate.cloneDeck();
                     if ai.TotalHand() <= 21 as u8 {
                             ai.DisplayHand();
-                        let choice: String = "pass".to_string(); //ai.AIturn(clonedeck); // need to fix reference issue
+                        let choice: String = ai.AIturn(&gamestate.fulldeck); // need to fix reference issue
                         if choice == "hit".to_string() {
                             let mut rng = rand::thread_rng();
-                            let card = gamestate.fulldeck.remove(rng.gen_range(0..(gamestate.fulldeck.len() as i32) as usize));
+                            let card: Card = gamestate.fulldeck.remove(rng.gen_range(0..(gamestate.fulldeck.len() as i32) as usize));
                             println!("{}", card.name_);
                             ai.hand.push(card);
                             if ai.TotalHand() > 21 as u8 {
@@ -62,16 +62,41 @@ pub fn main() {
                             }
                         } else if choice == "pass".to_string() {
                             curractive = false;
-                            println!("You passed next players turn")
+                            println!("AI {} passed next players turn", ai.id);
                         }
                     }
                 }
             }
-            GetWinner(&gamestate.aiplayers, &gamestate.player, &mut round);
-            //round = false;
+            let mut curractive = true;
+            while curractive {
+                if gamestate.player.TotalHand() <= 21 as u8 {
+                    print!("Hand: ");
+                        gamestate.player.DisplayHand();
+                    let mut choice = GetInput("'hit'(get another card) or 'pass'(end your hand)\n");
+                    if choice == "hit".to_string() {
+                        let mut rng = rand::thread_rng();
+                        let card = gamestate.fulldeck.remove(rng.gen_range(0..(gamestate.fulldeck.len() as i32) as usize));
+                        println!("{}", card.name_);
+                        gamestate.player.hand.push(card);
+                        if gamestate.player.TotalHand() > 21 as u8 {
+                           println!("You went over 21 and are out of the game for the rest of the round!");
+                           curractive = false;
+                        }
+                   } else if choice == "pass".to_string() {
+                        curractive = false;
+                        println!("You passed next players turn")
+                    }
+                }
+            }
+            if (gamestate.player.TotalHand() <= 21 as u8) {
+                GetWinner(&gamestate.aiplayers, &gamestate.player, &mut round);
+            } else {
+                println!("You busted so you loses! Try again");
+                round = false;
+            }
         }
         // test / escape latch
-        let s: String = GetInput("If done type 'end', enter anything else to play another round with the same settings\n");
+        let s: String = GetInput("If done type 'end', enter anything else to play another round\n");
         if s == "end".to_string() {
             gameplaycondition = false;
         }
@@ -131,28 +156,32 @@ pub fn InitialDeal(game: &mut Game) {
 pub fn GetWinner(aiplayers: &Vec<AI>, player: &Player, round: &mut bool) {
     let mut wintie: Vec<AI> = vec![];
     let mut max = 0;
-    for ai in aiplayers {
+    for ai in aiplayers { //set max
         if (ai.TotalHand() >= max) && (ai.TotalHand() <= 21) {
             max = ai.TotalHand();
         }
     }
-    for ai in aiplayers {
-        if ai.TotalHand() == max {
-            println!("max: {}", max);
-            wintie.push(ai.clone());
-        }
-    } //Player check still needed
-    if wintie.len() > 1 {
-        *round = true;
-        let mut playerids = "".to_string();
-        for player in &wintie {
-            playerids.push_str(player.id.to_string().as_str());
-            playerids.push_str(" ,");
-        }
-        println!("There is a tie. Players {} will have to player another round to determine a winner", playerids);
+    *round = false;
+    if max < player.TotalHand() &&  player.TotalHand() <= 21 {
+        println!("You are the Winner! \nTotal Score: {}", player.TotalHand());
     } else {
-        *round = false;
-        println!("Player {} is the Winner!", wintie[0].id);
+        for ai in aiplayers { //get max
+            if ai.TotalHand() == max {
+             println!("max: {}", max);
+                wintie.push(ai.clone());
+            }
+        } //Player check still needed
+        let mut ai_ids = "".to_string();
+        for ai in &wintie {
+            ai_ids.push_str(ai.id.to_string().as_str());
+            ai_ids.push_str(" ,");
+        }
+        if max > player.TotalHand() || player.TotalHand() > 21 {
+            println!("AI(s) {} beat you with a score of {}", ai_ids, wintie[0].TotalHand());
+        } else {
+            *round = true;
+            println!("There is a tie. You and AI(s) {} will have to play another round to determine a winner", ai_ids);
+        }
     }
 }
 

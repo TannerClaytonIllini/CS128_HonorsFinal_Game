@@ -47,24 +47,26 @@ impl AI {
                 possible_cards += 1;
             }
         }
-        let probablility = possible_cards / deck.len();
+        
+        let probablility: f32 = possible_cards as f32 / deck.len() as f32;
+        println!("AI CHOICE: {} cards less than {}. Out of {} Deck.\n probablility: {}", possible_cards, curr_limit, deck.len(), probablility);
         match self.difficulty {
             2 => {
-                if probablility >= 0.6 as usize {
+                if probablility >= 0.6 as f32 {
                     return "hit".to_string();
                 } else {
                     return "pass".to_string();
                 }
             }
             3 => {
-                if probablility >= 0.4 as usize {
+                if probablility >= 0.4 as f32 {
                     return "hit".to_string();
                 } else {
                     return "pass".to_string();
                 }
             }
             _ => {
-                if probablility >= 0.2 as usize {
+                if probablility >= 0.2 as f32 {
                     return "hit".to_string();
                 } else {
                     return "pass".to_string();

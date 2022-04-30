@@ -3,8 +3,9 @@
 3/27 Tanner: Creaded Game, Player, AI, and began building Game framework.
 3/28 Tanner: Setup Player Input. created player input parameters to Game. Started Dealing Cards. Rng import error
 3/30 Tanner: Resolved Rng import error. finished init deal. setup Display Table. === Richard Acknowleged project.
-4/3 Tanner: BlackJack is functional however does not have a win condition yet.
-4/7 Tanner: Win Condition implemented. BlackJack is functional
+4/3  Tanner: BlackJack is functional however does not have a win condition yet.
+4/7  Tanner: Win Condition implemented. BlackJack is functional
 4/20 Tanner: Reorganized. Added Menu and copied BlackjackAI, began implimenting. ownership issue in main game.
 4/22 Tanner: AI clean up. still short of full functionallity
 4/22 Richard: basic UI without game implemented
+4/29 Tanner: AI clean up. AI fully funcitonal. with non-matching dialogues 
