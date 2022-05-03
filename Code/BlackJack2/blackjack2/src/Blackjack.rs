@@ -1,8 +1,8 @@
 use super::cards::*;
 use super::Player::*;
 use std::io::{stdin,stdout,Write};
+use std::{thread, time};
 use rand::Rng;
-use std::thread;
 use std::thread::JoinHandle;
 
 /* Holds game data */
@@ -41,7 +41,7 @@ pub fn main() {
             println!("\n=============== NEW ROUND ================\n");
             //ADD a deck condidtion and adjustment for at least 5 cards per hand minimum.
             //let mut handles: Vec<JoinHandle<()>> = vec![];
-            for player in &gamestate.players {
+            /* for player in &gamestate.players {
                 /* // used later to distribute display to multipule human players
                 let mut playersc: Vec<Player> = &gamestate.clonePlayers();
                 let mut playerclone: Player = player.clone();
@@ -52,15 +52,16 @@ pub fn main() {
                 */
                 DisplayGameState(&gamestate.players, &player);
                 println!("NEXT PLAYER");
-            }
+            } */
             //game active after initial deal
             for player in &mut gamestate.players { //This can be made into a funciton
                 println!("It's your turn Player {}!",player.id);
                 let mut curractive = true; //current player is still active / has not passed yet
+                //DisplayGameState(&gamestate.players, &player);
                 while curractive {
                     if player.TotalHand() <= 21 as u8 {
                         print!("Hand: ");
-                            player.DisplayHand();
+                        player.DisplayHand();
                         let choice = GetInput("'hit'(get another card) or 'pass'(end your hand)\n");
                         if choice == "hit".to_string() {
                             let mut rng = rand::thread_rng();
@@ -77,6 +78,9 @@ pub fn main() {
                         }
                     }
                 }
+                let one_sec = time::Duration::from_millis(2000);
+                thread::sleep(one_sec);
+                print!("\x1B[2J\x1B[1;1H"); //Clear screen
             }
             GetWinner(&gamestate.players, &mut round);
             //round = false;
@@ -135,6 +139,11 @@ pub fn GetWinner(players: &Vec<Player>, round: &mut bool) {
         if (player.TotalHand() >= max) && (player.TotalHand() <= 21) {
             max = player.TotalHand();
         }
+    }
+    if (max == 0) {
+        println!("Everyone Busted! No Winner this round.");
+        *round = false;
+        return;
     }
     for player in players {
         if player.TotalHand() == max {

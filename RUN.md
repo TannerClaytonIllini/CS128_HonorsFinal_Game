@@ -16,6 +16,7 @@ cargo run
 -set up rust by download and install rustup https://forge.rust-lang.org/infra/other-installation-methods.html
 
 -install visual studio installer and install C++ buildtool here is the tutorial to install: https://www.jaacostan.com/2019/12/rust-error-linker-linkexe-not-found.html
+-You need those buildtools or it will not work
 
 -then go to BlackJack1 in your local Windows machine
 

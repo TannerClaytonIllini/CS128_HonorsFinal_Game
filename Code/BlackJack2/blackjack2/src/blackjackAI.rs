@@ -88,7 +88,7 @@ pub fn main() {
                     }
                 }
             }
-            if (gamestate.player.TotalHand() <= 21 as u8) {
+            if gamestate.player.TotalHand() <= 21 as u8 {
                 GetWinner(&gamestate.aiplayers, &gamestate.player, &mut round);
             } else {
                 println!("You busted so you loses! Try again");

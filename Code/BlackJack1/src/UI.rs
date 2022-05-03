@@ -12,7 +12,7 @@ use coffee::{Game, Result, Timer};
 
 pub fn main() -> Result<()> {
     <Tour as UserInterface>::run(WindowSettings {
-        title: String::from("BalckJack! by Everything is exploding"),
+        title: String::from("BlackJack! by Everything is exploding"),
         size: (1280, 1024),
         resizable: true,
         fullscreen: false,
