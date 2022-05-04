@@ -8,7 +8,7 @@ cargo run
 
 //============================================================================
 
-// All following instructions are for the incomplete UI component of Blackjack
+// All following instructions are for the incomplete UI component of Blackjack, and are not currently how the game is intended to be played
 
 // to run the game in a new window you should run it in Linux or Windows system but not within a wsl
 
