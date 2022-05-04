@@ -1,3 +1,15 @@
+// Command line version - run procedure
+
+git clone
+
+cd Code/BlackJack2/blackjack2
+
+cargo run
+
+
+
+// All following instructions are for the incomplete UI component of Blackjack
+
 // to run the game in a new window you should run it in Linux or Windows system but not within a wsl
 
 // also you need to install nvida cuda toolkit

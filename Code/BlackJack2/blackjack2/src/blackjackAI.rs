@@ -49,7 +49,7 @@ pub fn main() {
                 while curractive {
                    // let clonedeck: &Vec<Card> = &gamestate.cloneDeck();
                     if ai.TotalHand() <= 21 as u8 {
-                            ai.DisplayHand();
+                        // ai.DisplayHand();
                         let choice: String = ai.AIturn(&gamestate.fulldeck); // need to fix reference issue
                         if choice == "hit".to_string() {
                             let mut rng = rand::thread_rng();
