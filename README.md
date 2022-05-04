@@ -8,7 +8,7 @@ Group Members:
 Project Intro:
 
   We're going to recreate a minimal version of BlackJack.
-  The project with our current skills we felt comforable with a final worth of wait on a project we were reallatively confident in.
+  The project with our current skills we felt comforable with a final worth of weight on a project we were reallatively confident in.
   
   Objectives: 
  
